@@ -1,5 +1,4 @@
 # -*- coding: utf8 -*-
-from __future__ import unicode_literals
 
 from django.core.urlresolvers import resolve
 from django.test import TestCase
@@ -20,7 +19,7 @@ class HomePageTest(TestCase):
         expected_html = render_to_string('home.html')
 
         # 책에서는 python 3 버전을 썼기에 문제가 안되었겠지만, python2에서는 decode('utf-8') 을 하여야 에러가 적다.
-        self.assertEqual(response.content.decode('utf-8'), expected_html)
+        self.assertEqual(response.content.decode(), expected_html)
 
     def test_home_page_can_save_a_POST_request(self):
         request = HttpRequest()
@@ -29,10 +28,10 @@ class HomePageTest(TestCase):
 
         response = home_page(request)
 
-        self.assertIn("신규 작업 아이템", response.content.decode('utf-8'))
+        self.assertIn("신규 작업 아이템", response.content.decode())
         expected_html = render_to_string(
             'home.html',
             {'new_item_text':"신규 작업 아이템"}
         )
 
-        self.assertEqual(response.content.decode('utf-8'), expected_html)
+        self.assertEqual(response.content.decode(), expected_html)
